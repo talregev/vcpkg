@@ -1,7 +1,7 @@
 Source: curl
 Port-Version: 3
 Version: 7.74.0
-Build-Depends: zlib
+Build-Depends: 
 Homepage: https://github.com/curl/curl
 Description: A library for transferring data with URLs
 Default-Features: ssl, non-http
@@ -57,3 +57,7 @@ Description: brotli support (brotli)
 Feature: idn2
 Build-Depends: libidn2
 Description: idn2 support (libidn2)
+
+Feature: zlib
+Build-Depends: zlib
+Description: zlib support (zlib)
