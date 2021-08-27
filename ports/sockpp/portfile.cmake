@@ -7,6 +7,8 @@ vcpkg_from_github(
     REF d8c86c01db43542a06ad05424da037f6b9892253
     SHA512 9b7ae3fea08bfd4a0d6479d7fbcc24da9101476c4f8e4a684138c7d974827cdf374282a4641e58f03c08aeb83f2c1856fc3c5193e5847fb4b3d9182c1c396087
     HEAD_REF master
+    PATCHES
+        0001-fix-android-strerror.patch 
 )
 
 vcpkg_replace_string(${SOURCE_PATH}/CMakeLists.txt "\${SOCKPP}-static" "\${SOCKPP}")
