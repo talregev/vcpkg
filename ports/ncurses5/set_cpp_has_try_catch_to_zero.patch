@@ -1,0 +1,13 @@
+diff --git a/c++/cursesmain.cc b/c++/cursesmain.cc
+index 1f82d4ad..27b5c12d 100644
+--- a/c++/cursesmain.cc
++++ b/c++/cursesmain.cc
+@@ -33,7 +33,7 @@
+ 
+ #include "internal.h"
+ #include "cursesapp.h"
+-
++#define CPP_HAS_TRY_CATCH 0
+ #if CPP_HAS_TRY_CATCH && HAVE_IOSTREAM
+ #include <iostream>
+ #else

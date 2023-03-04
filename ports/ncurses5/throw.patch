@@ -1,0 +1,13 @@
+diff --git a/c++/cursesw.h b/c++/cursesw.h
+index b8e921a9..80557c68 100644
+--- a/c++/cursesw.h
++++ b/c++/cursesw.h
+@@ -30,7 +30,7 @@
+ 
+ #ifndef NCURSES_CURSESW_H_incl
+ #define NCURSES_CURSESW_H_incl 1
+-
++#define throw(...)
+ // $Id: cursesw.h,v 1.48 2008/01/19 21:09:10 tom Exp $
+ 
+ #include <etip.h>
