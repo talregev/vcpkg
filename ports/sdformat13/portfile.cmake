@@ -7,6 +7,7 @@ vcpkg_from_github(
     HEAD_REF sdf13
     PATCHES
         no-absolute.patch
+        cmake-config.patch
 )
 
 # Ruby is required by the sdformat build process
@@ -24,7 +25,7 @@ vcpkg_cmake_configure(
 vcpkg_cmake_install()
 
 # Fix cmake targets and pkg-config file location
-vcpkg_cmake_config_fixup(CONFIG_PATH "lib/cmake/sdformat12")
+vcpkg_cmake_config_fixup(CONFIG_PATH "lib/cmake/sdformat13")
 vcpkg_fixup_pkgconfig()
 
 # Remove debug files
