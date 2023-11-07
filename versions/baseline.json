@@ -3236,6 +3236,10 @@
       "baseline": "7.3.0",
       "port-version": 0
     },
+    "gz-sim7": {
+      "baseline": "7.6.0",
+      "port-version": 0
+    },
     "gz-tools2": {
       "baseline": "2.0.0",
       "port-version": 1

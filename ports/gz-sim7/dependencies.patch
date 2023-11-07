@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -119,9 +119,9 @@
+     Core
+     Quick
+     QuickControls2
+   REQUIRED
+-  PKGCONFIG "Qt5Core Qt5Quick Qt5QuickControls2")
++)
+ 
+ #--------------------------------------
+ # Find gz-physics
+ gz_find_package(gz-physics6
