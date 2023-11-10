@@ -3,8 +3,6 @@ set(PACKAGE_NAME gazebo)
 set(FLGAS "")
 if(VCPKG_TARGET_IS_WINDOWS)
    set(FLGAS "/bigobj")
-# else()
-#    set(FLGAS "-Wa,-mbig-obj")
 endif()
 
 ignition_modular_library(
@@ -15,7 +13,20 @@ ignition_modular_library(
    OPTIONS
       -DSKIP_PYBIND11=ON
       -DCMAKE_CXX_FLAGS=${FLGAS}
-      # --help-policy=CMP0111
    PATCHES
       dependencies.patch
 )
+
+if(VCPKG_TARGET_IS_WINDOWS)   
+   file(GLOB plugins "${CURRENT_PACKAGES_DIR}/lib/gz-sim-7/plugins/*.dll")
+   if (NOT plugins STREQUAL "")
+      file(COPY ${plugins} DESTINATION "${CURRENT_PACKAGES_DIR}/engine-plugins/")
+      file(REMOVE ${plugins})
+   endif()
+
+   file(GLOB plugins_debug "${CURRENT_PACKAGES_DIR}/debug/lib/gz-sim-7/plugins/*.dll")
+   if (NOT plugins_debug STREQUAL "")
+      file(COPY ${plugins_debug} DESTINATION "${CURRENT_PACKAGES_DIR}/debug/engine-plugins/")
+      file(REMOVE ${plugins_debug})
+   endif()
+endif()

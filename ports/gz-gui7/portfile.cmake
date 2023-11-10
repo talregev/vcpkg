@@ -22,7 +22,4 @@ if(VCPKG_TARGET_IS_WINDOWS)
       file(COPY ${plugins_debug} DESTINATION "${CURRENT_PACKAGES_DIR}/debug/engine-plugins/")
       file(REMOVE ${plugins_debug})
    endif()
-
-    # Lacking pc files for Qt
-    file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/lib/pkgconfig" "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
 endif()

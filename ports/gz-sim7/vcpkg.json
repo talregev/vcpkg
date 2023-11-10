@@ -4,6 +4,7 @@
   "description": "Gazebo Sim is an open source robotics simulator.",
   "homepage": "https://gazebosim.org/libs/sim",
   "license": "Apache-2.0",
+  "supports": "windows",
   "dependencies": [
     "gz-cmake3",
     "gz-common5",
