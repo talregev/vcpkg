@@ -17,16 +17,17 @@ ignition_modular_library(
       dependencies.patch
 )
 
-if(VCPKG_TARGET_IS_WINDOWS)   
-   file(GLOB plugins "${CURRENT_PACKAGES_DIR}/lib/gz-sim-7/plugins/*.dll")
-   if (NOT plugins STREQUAL "")
-      file(COPY ${plugins} DESTINATION "${CURRENT_PACKAGES_DIR}/engine-plugins/")
-      file(REMOVE ${plugins})
-   endif()
+IF(EXISTS "${CURRENT_PACKAGES_DIR}/lib/gz-sim-7/")
+   file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/plugins")
+   file(RENAME "${CURRENT_PACKAGES_DIR}/lib/gz-sim-7/" "${CURRENT_PACKAGES_DIR}/plugins/gz-sim-7/")
+endif()
 
-   file(GLOB plugins_debug "${CURRENT_PACKAGES_DIR}/debug/lib/gz-sim-7/plugins/*.dll")
-   if (NOT plugins_debug STREQUAL "")
-      file(COPY ${plugins_debug} DESTINATION "${CURRENT_PACKAGES_DIR}/debug/engine-plugins/")
-      file(REMOVE ${plugins_debug})
-   endif()
+if(EXISTS "${CURRENT_PACKAGES_DIR}/debug/lib/gz-sim-7/")
+   file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/debug/plugins")
+   file(RENAME "${CURRENT_PACKAGES_DIR}/debug/lib/gz-sim-7/" "${CURRENT_PACKAGES_DIR}/debug/plugins/gz-sim-7/")
+endif()
+
+if(VCPKG_TARGET_IS_WINDOWS)
+    # Lacking pc files for gz-gui7
+    file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/lib/pkgconfig" "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
 endif()
