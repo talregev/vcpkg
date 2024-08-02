@@ -1,6 +1,7 @@
 {
   "name": "curl",
   "version": "8.14.1",
+  "port-version": 1,
   "description": "A library for transferring data with URLs",
   "homepage": "https://curl.se/",
   "license": "curl AND ISC AND BSD-3-Clause",
@@ -73,6 +74,27 @@
     },
     "httpsrr": {
       "description": "enable support for HTTPS RR"
+    },
+    "http3": {
+      "description": "Enable http3 with gnutls backend",
+      "supports": "(uwp | !windows) & !(osx | ios) & !mingw",
+      "dependencies": [
+        {
+          "name": "curl",
+          "default-features": false,
+          "features": [
+            "openssl"
+          ]
+        },
+        "nghttp3",
+        {
+          "name": "ngtcp2",
+          "default-features": false,
+          "features": [
+            "openssl"
+          ]
+        }
+      ]
     },
     "idn": {
       "description": "Default IDN support",
