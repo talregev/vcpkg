@@ -1,0 +1,28 @@
+diff --git a/src/bin/CMakeLists.txt b/src/bin/CMakeLists.txt
+index 07df9daf7..9a5e124e3 100644
+--- a/src/bin/CMakeLists.txt
++++ b/src/bin/CMakeLists.txt
+@@ -271,7 +271,7 @@ set(PUBLIC_HEADERS
+ 
+ file(GLOB PUBLIC_HEADERS "../inc/*.h" "../inc/*.hpp")
+ 
+-install(TARGETS msquic EXPORT msquic
++install(TARGETS msquic platform inc logging_inc warnings main_binary_link_args OpenSSL OpenSSLQuic EXPORT msquic
+     RUNTIME DESTINATION bin
+     ARCHIVE DESTINATION lib
+     LIBRARY DESTINATION lib)
+diff --git a/src/inc/CMakeLists.txt b/src/inc/CMakeLists.txt
+index 94daef9a6..975167e68 100644
+--- a/src/inc/CMakeLists.txt
++++ b/src/inc/CMakeLists.txt
+@@ -9,7 +9,9 @@ target_compile_options(inc INTERFACE ${QUIC_C_FLAGS})
+ target_compile_options(inc INTERFACE $<$<COMPILE_LANGUAGE:CXX>:${QUIC_CXX_FLAGS}>)
+ 
+ target_compile_definitions(inc INTERFACE ${QUIC_COMMON_DEFINES})
+-target_include_directories(inc INTERFACE ${QUIC_INCLUDE_DIR})
++target_include_directories(inc INTERFACE 
++    $<BUILD_INTERFACE:${QUIC_INCLUDE_DIR}>
++    $<INSTALL_INTERFACE:include>)
+ 
+ target_compile_features(inc INTERFACE cxx_std_17)
+ target_compile_features(inc INTERFACE c_std_11)
