@@ -2,15 +2,15 @@ vcpkg_check_linkage(ONLY_DYNAMIC_LIBRARY)
 
 vcpkg_from_github(
     OUT_SOURCE_PATH QUIC_SOURCE_PATH
-    REPO microsoft/msquic
-    REF "v${VERSION}"
-    SHA512 51afee7e28a7d6ae1b5491edd635e0c88a92a00bacedeaac632a0f19762e9940c9b819a9d33072d3553c004acd4ec0cdf645301f712b408498053de065b2b1cf
+    REPO talregev/msquic
+    REF TalR/export_platform
+    SHA512 f8adfa07531009ee006b693e4172cfe93b129c84a19ab51b6ebb17171c4a3a402385a1596dd393fdc6e59daf9acf9d14f331181869616b778b97af619e3942d4
     HEAD_REF master
     PATCHES
         fix-install.patch # Adjust install path of build outputs
         fix-uwp-crt.patch # https://github.com/microsoft/msquic/pull/4373
         fix-comparing-system-processor-with-win32.patch # https://github.com/microsoft/msquic/pull/4374
-        all_headers.patch
+        # all_headers.patch
 )
 
 # This avoids a link error on x86-windows:
