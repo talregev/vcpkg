@@ -1,0 +1,13 @@
+{
+  "name": "vlc",
+  "version": "3.0.21",
+  "description": "free and open source cross-platform multimedia player and framework that plays most multimedia files.",
+  "homepage": "https://www.videolan.org/vlc/",
+  "license": "LGPL-2.1-only",
+  "dependencies": [
+    {
+      "name": "vcpkg-tool-meson",
+      "host": true
+    }
+  ]
+}
