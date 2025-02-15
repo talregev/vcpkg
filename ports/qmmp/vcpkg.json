@@ -1,0 +1,39 @@
+{
+  "name": "qmmp",
+  "version-string": "2.2.3",
+  "description": "audio-player, written with the help of the Qt library.",
+  "homepage": "https://qmmp.ylsoftware.com/",
+  "license": "GPL-2.0-or-later",
+  "dependencies": [
+    {
+      "name": "qtbase",
+      "default-features": false,
+      "features": [
+        "network",
+        "widgets",
+        "sql",
+        "dbus",
+        "opengl"
+      ]
+    },
+    {
+      "name": "qttools",
+      "default-features": false,
+      "features": [
+        "linguist"
+      ]
+    },
+    {
+      "name": "qtmultimedia",
+      "default-features": false
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}
