@@ -1,0 +1,38 @@
+{
+  "name": "inkscape",
+  "version": "1.5.0",
+  "description": "vector graphics editor",
+  "homepage": "hhttps://inkscape.org/",
+  "license": "GPL-2.0-or-later",
+  "dependencies": [
+    "bdwgc",
+    "boost-algorithm",
+    "boost-asio",
+    "boost-assign",
+    "boost-bimap",
+    "boost-compute",
+    "boost-filesystem",
+    "boost-math",
+    "boost-multi-index",
+    "boost-ptr-container",
+    "boost-range",
+    "boost-stacktrace",
+    "cairomm",
+    "fontconfig",
+    "graphene",
+    "gsl",
+    "gtkmm",
+    "harfbuzz",
+    "lcms",
+    "libxslt",
+    "pangomm",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}
