@@ -1,0 +1,26 @@
+{
+  "name": "appstream-glib",
+  "version": "0.8.3",
+  "description": "Provides GObjects and helper methods to make it easy to read and write AppStream metadata.",
+  "homepage": "https://github.com/hughsie/appstream-glib/",
+  "license": "LGPL-2.1",
+  "dependencies": [
+    "curl",
+    "fontconfig",
+    "freetype",
+    "gdk-pixbuf",
+    "glib",
+    "gperf",
+    "gtk3",
+    "json-glib",
+    "libarchive",
+    {
+      "name": "libuuid",
+      "platform": "linux"
+    },
+    {
+      "name": "vcpkg-tool-meson",
+      "host": true
+    }
+  ]
+}
