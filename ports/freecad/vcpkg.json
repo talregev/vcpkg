@@ -1,0 +1,39 @@
+{
+  "name": "freecad",
+  "version": "1.0.1",
+  "description": "Open-source parametric 3D modeler made primarily to design real-life objects of any size.",
+  "homepage": "https://www.freecad.org",
+  "license": "GPL-2.0",
+  "dependencies": [
+    "boost-date-time",
+    "boost-filesystem",
+    "boost-graph",
+    "boost-iostreams",
+    "boost-program-options",
+    "boost-python",
+    "boost-regex",
+    "boost-serialization",
+    "boost-signals2",
+    "boost-thread",
+    "eigen3",
+    "fmt",
+    "opencascade",
+    {
+      "name": "qtbase",
+      "features": [
+        "concurrent",
+        "network"
+      ]
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    },
+    "xerces-c",
+    "yaml-cpp"
+  ]
+}
