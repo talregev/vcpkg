@@ -33,6 +33,12 @@
     {
       "name": "vcpkg-tool-meson",
       "host": true
+    },
+    {
+      "name": "poppler",
+      "features": [
+        "glib"
+      ]
     }
   ]
 }
