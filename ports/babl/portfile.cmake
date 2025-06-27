@@ -22,7 +22,7 @@ vcpkg_configure_meson(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         ${feature_options}
-        -Denable-gir=false
+        -Denable-gir=true
         -Dwith-docs=false
 )
 vcpkg_install_meson()
