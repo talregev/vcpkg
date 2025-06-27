@@ -13,6 +13,36 @@ vcpkg_extract_source_archive(
 vcpkg_configure_meson(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
+        -Daa=disabled
+        -Dalsa=disabled
+        -Dappdata-test=disabled
+        -Dcairo-pdf=disabled
+        -Dfits=disabled
+        -Dghostscript=disabled
+        -Dgudev=disabled
+        -Dheif=disabled
+        -Dilbm=disabled
+        -Djpeg2000=disabled
+        -Djpeg-xl=disabled
+        -Dmng=disabled
+        -Dopenexr=disabled
+        -Dopenmp=disabled
+        -Dprint=false
+        -Dwebkit-unmaintained=false
+        -Dwebp=disabled
+        -Dwmf=disabled
+        -Dxcursor=disabled
+        -Dxpm=disabled
+        -Dheadless-tests=disabled
+        -Dfile-plug-ins-test=false
+        -Dcan-crosscompile-gir=false
+        -Dgi-docgen=disabled
+        -Dlinux-input=disabled
+        -Dvector-icons=false
+        -Dvala=disabled
+        -Djavascript=disabled
+        -Dlua=false
+        -Ddebug-self-in-build=false
 )
 
 vcpkg_install_meson()
