@@ -26,11 +26,9 @@
     "json-glib",
     "lcms",
     "libmypaint",
-    "librsvg",
     "libxml2",
     "mypaint-brushes",
     "pango",
-    "poppler",
     "tiff",
     {
       "name": "vcpkg-tool-meson",

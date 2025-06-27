@@ -18,7 +18,7 @@ vcpkg_configure_meson(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -Ddocs=false
-        -Dintrospection=false
+        -Dintrospection=true
         -Dgdk-pixbuf=disabled
         -Dgexiv2=disabled
         -Dgraphviz=disabled
