@@ -33,6 +33,8 @@ vcpkg_add_to_path("${GPERF_EXE_PATH}")
 vcpkg_find_acquire_program(PKGCONFIG)
 set(ENV{PKG_CONFIG} "${PKGCONFIG}")
 
+vcpkg_add_to_path("${CURRENT_INSTALLED_DIR}/tools/Qt6/bin/")
+
 if(VCPKG_HOST_IS_OSX)
     message("${PORT} currently requires the following programs from the system package manager:\n    gsed\n\nIt can be installed with brew gnu-sed")
 endif()
@@ -144,6 +146,12 @@ else()
     set(PORTAUDIO_OPTION "no")
 endif()
 
+if("gui" IN_LIST FEATURES)
+    set(GUI_OPTION "6")
+else()
+    set(GUI_OPTION "no")
+endif()
+
 vcpkg_add_to_path("${CURRENT_INSTALLED_DIR}/tools/fltk")
 
 vcpkg_configure_make(
@@ -179,7 +187,7 @@ vcpkg_configure_make(
     --with-qhull_r=no
     --with-qrupdate=no
     --with-qscintilla=no
-    --with-qt=no
+    --with-qt=${GUI_OPTION}
     --with-sndfile # yes
     --with-spqr=${SPQR_OPTION}
     --with-suitesparseconfig=${SUITESPARSECONFIG_OPTION}

@@ -136,6 +136,32 @@
         }
       ]
     },
+    "gui": {
+      "description": "build with gui support",
+      "dependencies": [
+        {
+          "name": "qtbase",
+          "default-features": false
+        },
+        {
+          "name": "qttools",
+          "default-features": false,
+          "features": [
+            "assistant",
+            "designer",
+            "linguist"
+          ]
+        },
+        {
+          "name": "octave",
+          "default-features": false,
+          "features": [
+            "freetype",
+            "fontconfig"
+          ]
+        }
+      ]
+    },
     "portaudio": {
       "description": "portaudio support",
       "dependencies": [
