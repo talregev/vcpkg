@@ -139,6 +139,11 @@
     "gui": {
       "description": "build with gui support",
       "dependencies": [
+        "qt5compat",
+        {
+          "name": "freeglut",
+          "platform": "linux"
+        },
         {
           "name": "qtbase",
           "default-features": false

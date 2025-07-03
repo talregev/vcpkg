@@ -1,0 +1,23 @@
+diff --git a/cmake/QtPkgConfigHelpers.cmake b/cmake/QtPkgConfigHelpers.cmake
+--- a/cmake/QtPkgConfigHelpers.cmake
++++ b/cmake/QtPkgConfigHelpers.cmake
+@@ -25,9 +25,9 @@
+     if((NOT UNIX OR QT_FEATURE_framework)
+         AND NOT MINGW OR CMAKE_VERSION VERSION_LESS "3.20" OR ANDROID)
+         return()
+     endif()
+-    if(NOT BUILD_SHARED_LIBS)
++    if(0)
+         return()
+     endif()
+ 
+     set(pkgconfig_file "${QT_CMAKE_EXPORT_NAMESPACE}${module}")
+diff --git a/cmake/QtBaseGlobalTargets.cmake b/cmake/QtBaseGlobalTargets.cmake
+--- a/cmake/QtBaseGlobalTargets.cmake
++++ b/cmake/QtBaseGlobalTargets.cmake
+@@ -398,4 +398,5 @@
+ qt_copy_or_install(PROGRAMS "util/testrunner/qt-testrunner.py"
+     DESTINATION "${__qt_libexec_install_dir}")
+ qt_copy_or_install(PROGRAMS "util/testrunner/sanitizer-testrunner.py"
+     DESTINATION "${__qt_libexec_install_dir}")
++qt_internal_generate_pkg_config_file(GlobalConfig)
