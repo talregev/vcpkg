@@ -98,8 +98,9 @@ jobs:
       - name: "Install dependencies"
         run: >
           vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
-          qttools[core,assistant,designer,linguist]
-          qt5compat
+          qtbase
+          # qttools[core,assistant,designer,linguist]
+          # qt5compat
 
       - name: copy files for hash
         shell: bash
@@ -112,18 +113,26 @@ jobs:
             cp "$filepath" "vcpkg-info/${triplet}_${port}.txt"
           done
 
-      - name: Save cache dependencies
-        uses: actions/cache/save@v4
-        with:
-          path: ${{ matrix.binary_cache }}
-          key: ${{ matrix.os }}-${{ hashFiles('vcpkg-info/*') }}
+      # - name: Save cache dependencies
+      #   uses: actions/cache/save@v4
+      #   with:
+      #     path: ${{ matrix.binary_cache }}
+      #     key: ${{ matrix.os }}-${{ hashFiles('vcpkg-info/*') }}
 
-      - name: "Install octave"
-        run: >
-          vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
-          octave[gui]
-
-      - name: "log"
+      - name: "log qtbase"
         if: always()
         run: |
-         cat ${{ matrix.home }}/runner/work/vcpkg/vcpkg/buildtrees/octave/config-${{ matrix.triplet }}-rel-out.log
+         cat ${{ matrix.home }}/runner/work/vcpkg/vcpkg/buildtrees/qtbase/config.summary-${{ matrix.triplet }}-rel.log
+         cat ${{ matrix.home }}/runner/work/vcpkg/vcpkg/buildtrees/qtbase/config-${{ matrix.triplet }}-out.log
+         cat ${{ matrix.home }}/runner/work/vcpkg/vcpkg/buildtrees/qtbase/config-${{ matrix.triplet }}-rel-CMakeConfigureLog.yaml.log
+         cat installed/${{ matrix.triplet }}/lib/pkgconfig/Qt6Sql.pc
+
+      # - name: "Install octave"
+      #   run: >
+      #     vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
+      #     octave[gui]
+
+      # - name: "log octave"
+      #   if: always()
+      #   run: |
+      #    cat ${{ matrix.home }}/runner/work/vcpkg/vcpkg/buildtrees/octave/config-${{ matrix.triplet }}-rel-out.log
