@@ -1,3 +1,12 @@
+diff --git a/cmake/QtBaseGlobalTargets.cmake b/cmake/QtBaseGlobalTargets.cmake
+--- a/cmake/QtBaseGlobalTargets.cmake
++++ b/cmake/QtBaseGlobalTargets.cmake
+@@ -398,4 +398,5 @@
+ qt_copy_or_install(PROGRAMS "util/testrunner/qt-testrunner.py"
+     DESTINATION "${__qt_libexec_install_dir}")
+ qt_copy_or_install(PROGRAMS "util/testrunner/sanitizer-testrunner.py"
+     DESTINATION "${__qt_libexec_install_dir}")
++qt_internal_generate_pkg_config_file(GlobalConfig)
 diff --git a/cmake/QtPkgConfigHelpers.cmake b/cmake/QtPkgConfigHelpers.cmake
 --- a/cmake/QtPkgConfigHelpers.cmake
 +++ b/cmake/QtPkgConfigHelpers.cmake
@@ -12,12 +21,43 @@ diff --git a/cmake/QtPkgConfigHelpers.cmake b/cmake/QtPkgConfigHelpers.cmake
      endif()
  
      set(pkgconfig_file "${QT_CMAKE_EXPORT_NAMESPACE}${module}")
-diff --git a/cmake/QtBaseGlobalTargets.cmake b/cmake/QtBaseGlobalTargets.cmake
---- a/cmake/QtBaseGlobalTargets.cmake
-+++ b/cmake/QtBaseGlobalTargets.cmake
-@@ -398,4 +398,5 @@
- qt_copy_or_install(PROGRAMS "util/testrunner/qt-testrunner.py"
-     DESTINATION "${__qt_libexec_install_dir}")
- qt_copy_or_install(PROGRAMS "util/testrunner/sanitizer-testrunner.py"
-     DESTINATION "${__qt_libexec_install_dir}")
-+qt_internal_generate_pkg_config_file(GlobalConfig)
+@@ -44,11 +44,18 @@
+     if(is_internal_module)
+         return()
+     endif()
+ 
++    set(CMAKE_MESSAGE_LOG_LEVEL "STATUS")
++    message(STATUS "module: ${module}")
+     get_target_property(loose_link_options ${target} INTERFACE_LINK_OPTIONS)
++    message(STATUS "loose_link_options: ${loose_link_options}")
+     get_target_property(loose_compile_defs ${target} INTERFACE_COMPILE_DEFINITIONS)
+     get_target_property(loose_include_dirs ${target} INTERFACE_INCLUDE_DIRECTORIES)
++
++    get_target_property(LINK_LIBS ${target} LINK_LIBRARIES)
++    message(STATUS "Link libraries: ${LINK_LIBS}")
++
+     list(TRANSFORM loose_include_dirs REPLACE "${INSTALL_INCLUDEDIR}" "\${includedir}")
+     list(TRANSFORM loose_include_dirs REPLACE "${INSTALL_MKSPECSDIR}" "\${mkspecsdir}")
+ 
+     # Remove genex wrapping around gc_sections flag because we can't evaluate genexes like
+@@ -100,8 +107,20 @@
+         endif()
+     endforeach()
+     string(APPEND link_options " $<JOIN:$<REMOVE_DUPLICATES:${target_libs}>, >")
+ 
++    foreach(lib IN LISTS LINK_LIBS)
++        if("${lib}" STREQUAL "LINK_LIBS-NOTFOUND")
++            continue()
++        endif()
++        if("${lib}" STREQUAL "z")
++            continue()
++        endif()
++        list(APPEND link_options "${lib}")
++    endforeach()
++
++    message(STATUS "link_options: ${link_options}")
++
+     qt_path_join(path_suffix "${INSTALL_LIBDIR}" pkgconfig)
+     qt_path_join(build_dir "${QT_BUILD_DIR}" "${path_suffix}")
+     qt_path_join(install_dir "${QT_INSTALL_DIR}" "${path_suffix}")
+ 

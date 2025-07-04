@@ -145,7 +145,7 @@ else()
 endif()
 
 if("gui" IN_LIST FEATURES)
-    set(GUI_OPTION "yes")
+    set(GUI_OPTION "6")
 else()
     set(GUI_OPTION "no")
 endif()
