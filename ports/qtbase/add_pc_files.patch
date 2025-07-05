@@ -1,0 +1,82 @@
+diff --git a/cmake/QtBaseGlobalTargets.cmake b/cmake/QtBaseGlobalTargets.cmake
+--- a/cmake/QtBaseGlobalTargets.cmake
++++ b/cmake/QtBaseGlobalTargets.cmake
+@@ -398,4 +398,5 @@
+ qt_copy_or_install(PROGRAMS "util/testrunner/qt-testrunner.py"
+     DESTINATION "${__qt_libexec_install_dir}")
+ qt_copy_or_install(PROGRAMS "util/testrunner/sanitizer-testrunner.py"
+     DESTINATION "${__qt_libexec_install_dir}")
++qt_internal_generate_pkg_config_file(GlobalConfig)
+diff --git a/cmake/QtPkgConfigHelpers.cmake b/cmake/QtPkgConfigHelpers.cmake
+--- a/cmake/QtPkgConfigHelpers.cmake
++++ b/cmake/QtPkgConfigHelpers.cmake
+@@ -1,7 +1,40 @@
+ # Copyright (C) 2022 The Qt Company Ltd.
+ # SPDX-License-Identifier: BSD-3-Clause
+ 
++# Copyright (C) 2022 The Qt Company Ltd.
++# SPDX-License-Identifier: BSD-3-Clause
++
++function(get_target_property_transitive out_var target property)
++  set(_visited_targets "")
++  set(_accumulated_values "")
++
++  function(_collect tgt)
++    if(tgt IN_LIST _visited_targets)
++      return()
++    endif()
++    list(APPEND _visited_targets ${tgt})
++
++    get_target_property(value ${tgt} ${property})
++    if(value)
++      list(APPEND _accumulated_values ${value})
++
++      foreach(item IN LISTS value)
++        if(NOT item MATCHES "^-")
++          if(TARGET ${item})
++            _collect(${item})
++          endif()
++        endif()
++      endforeach()
++    endif()
++  endfunction()
++
++  _collect(${target})
++
++  # Note: duplicates NOT removed
++  set(${out_var} "${_accumulated_values}" PARENT_SCOPE)
++endfunction()
++
+ function(qt_internal_collect_direct_target_dependencies target targets_out_var)
+     __qt_internal_walk_libs("${target}" "${targets_out_var}" _rcc_objects
+                             "qt_direct_targets_dict" "direct_targets")
+     set("${targets_out_var}" "${${targets_out_var}}" PARENT_SCOPE)
+@@ -21,13 +54,14 @@
+ 
+ # Create a Qt6*.pc file intended for pkg-config consumption.
+ function(qt_internal_generate_pkg_config_file module)
+     # TODO: PkgConfig is supported under MSVC with pkgconf (github.com/pkgconf/pkgconf)
++    message(STATUS "module: ${module}")
+     if((NOT UNIX OR QT_FEATURE_framework)
+         AND NOT MINGW OR CMAKE_VERSION VERSION_LESS "3.20" OR ANDROID)
+         return()
+     endif()
+-    if(NOT BUILD_SHARED_LIBS)
++    if(0)
+         return()
+     endif()
+ 
+     set(pkgconfig_file "${QT_CMAKE_EXPORT_NAMESPACE}${module}")
+@@ -45,8 +79,12 @@
+         return()
+     endif()
+ 
+     get_target_property(loose_link_options ${target} INTERFACE_LINK_OPTIONS)
++    message(STATUS "loose_link_options: ${loose_link_options}")
++    get_target_property_transitive(loose_link_options_transive ${target} INTERFACE_LINK_OPTIONS)
++    message(STATUS "loose_link_options_transive: ${loose_link_options_transive}")
++    message(STATUS "targets_out_var: ${targets_out_var}")
+     get_target_property(loose_compile_defs ${target} INTERFACE_COMPILE_DEFINITIONS)
+     get_target_property(loose_include_dirs ${target} INTERFACE_INCLUDE_DIRECTORIES)
+     list(TRANSFORM loose_include_dirs REPLACE "${INSTALL_INCLUDEDIR}" "\${includedir}")
+     list(TRANSFORM loose_include_dirs REPLACE "${INSTALL_MKSPECSDIR}" "\${mkspecsdir}")
