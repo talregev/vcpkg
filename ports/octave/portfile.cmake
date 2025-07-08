@@ -144,7 +144,15 @@ else()
     set(PORTAUDIO_OPTION "no")
 endif()
 
+if("gui" IN_LIST FEATURES)
+    set(GUI_OPTION "6")
+else()
+    set(GUI_OPTION "no")
+endif()
+
 vcpkg_add_to_path("${CURRENT_INSTALLED_DIR}/tools/fltk")
+vcpkg_add_to_path("${CURRENT_INSTALLED_DIR}/tools/Qt6/bin")
+
 
 vcpkg_configure_make(
     SOURCE_PATH "${SOURCE_PATH}"
@@ -179,7 +187,7 @@ vcpkg_configure_make(
     --with-qhull_r=no
     --with-qrupdate=no
     --with-qscintilla=no
-    --with-qt=no
+    --with-qt=${GUI_OPTION}
     --with-sndfile # yes
     --with-spqr=${SPQR_OPTION}
     --with-suitesparseconfig=${SUITESPARSECONFIG_OPTION}
