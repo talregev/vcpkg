@@ -126,4 +126,4 @@ jobs:
       - name: "log octave"
         if: always()
         run: |
-         cat ${{ matrix.home }}/buildtrees/octave/config-${{ matrix.triplet }}-rel-out.log
+         cat ${{ matrix.home }}/buildtrees/octave/config-${{ matrix.triplet }}-dbg-out.log

@@ -1,0 +1,17 @@
+diff --git a/m4/acinclude.m4 b/m4/acinclude.m4
+--- a/m4/acinclude.m4
++++ b/m4/acinclude.m4
+@@ -2181,8 +2181,13 @@
+       ## are available and/or missing
+       QT_MODULES_AVAILABLE=
+       QT_MODULES_MISSING=
+       for qt_mod in $QT_MODULES; do
++        if test $qt_mod = Qt5Help; then
++          AC_MSG_NOTICE([Qt5Help: ====>])
++          TAL="$(($PKG_CONFIG --debug --libs $qt_mod) 2>&1)"
++          AC_MSG_NOTICE([TAL: ${TAL}])
++        fi
+         if $PKG_CONFIG --exists $qt_mod; then
+           QT_MODULES_AVAILABLE="$QT_MODULES_AVAILABLE $qt_mod"
+         else
+           QT_MODULES_MISSING="$QT_MODULES_MISSING $qt_mod"

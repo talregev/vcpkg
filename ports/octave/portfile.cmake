@@ -13,6 +13,7 @@ vcpkg_extract_source_archive(
     PATCHES
         run-mk-ops.diff
         fix_other_flags.patch
+        debug.patch
 )
 
 include(vcpkg_find_fortran)
