@@ -144,6 +144,21 @@
         }
       ]
     },
+    "qhull": {
+      "description": "qhull support",
+      "dependencies": [
+        "qhull"
+      ]
+    },
+    "curl": {
+      "description": "curl support",
+      "dependencies": [
+        {
+          "name": "curl",
+          "default-features": false
+        }
+      ]
+    },
     "spqr": {
       "description": "suitesparse-spqr support",
       "dependencies": [
