@@ -5,7 +5,7 @@ vcpkg_from_gitlab(
     GITLAB_URL https://foss.heptapod.net/
     REPO graphicsmagick/graphicsmagick
     REF ${graphicsmagick_version}
-    SHA512 e64842dbbe2026e7d75b4004f615f32b4e2d57ce8dbd9bc90f87ee6e180d7e2feb61da6c25d404c43ac8d7661f94f7be3bd2882928dbd0e276b5c9040690f6f4
+    SHA512 c6ee4ded9df4816c5f9522b825d51d23b8c3bef3218b630891f16950452a98633c6a9076b87c07b47493af44b6b4c4cfddfed456a715c885ac3d1d4c6252a6a7
     PATCHES
         # GM always requires a dynamic BZIP2. This patch makes this dependent if _DLL is defined
         dynamic_bzip2.patch
