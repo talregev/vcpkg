@@ -1,0 +1,15 @@
+{
+  "name": "dlprimitives",
+  "version": "0.0.0",
+  "description": "Cross platform OpenCL tools for deep learning and inference",
+  "homepage": "https://github.com/artyom-beilis/dlprimitives",
+  "license": null,
+  "dependencies": [
+    "opencl",
+    "boost-python",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}
