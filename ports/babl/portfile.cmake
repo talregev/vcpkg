@@ -20,7 +20,6 @@ endif()
 
 if("introspection" IN_LIST FEATURES)
     list(APPEND feature_options "-Denable-gir=true")
-    vcpkg_get_gobject_introspection_programs(PYTHON3 GIR_COMPILER GIR_SCANNER)
 else()
     list(APPEND feature_options "-Denable-gir=false")
 endif()

@@ -19,10 +19,7 @@
       ]
     },
     "introspection": {
-      "description": "Enable introspection",
-      "dependencies": [
-        "gobject-introspection"
-      ]
+      "description": "Enable introspection"
     }
   }
 }

@@ -8,6 +8,9 @@ vcpkg_extract_source_archive(
     SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
     PATCHES
+        glib_networking.patch
+        bzip2.patch
+        gir_share.patch
 )
 
 vcpkg_configure_meson(
