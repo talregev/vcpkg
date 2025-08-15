@@ -13,6 +13,8 @@ vcpkg_extract_source_archive(
         gir_share.patch
 )
 
+# vcpkg_get_gobject_introspection_programs(PYTHON3 GIR_COMPILER GIR_SCANNER)
+
 vcpkg_configure_meson(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
@@ -46,6 +48,9 @@ vcpkg_configure_meson(
         -Djavascript=disabled
         -Dlua=false
         -Ddebug-self-in-build=false
+    # ADDITIONAL_BINARIES
+    #     "g-ir-compiler='${GIR_COMPILER}'"
+    #     "g-ir-scanner='${GIR_SCANNER}'"
 )
 
 vcpkg_install_meson()
