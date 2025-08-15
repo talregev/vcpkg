@@ -4,7 +4,7 @@
   "description": "GNU Image Manipulation Program which is useful for photo retouching, image composition and image authoring.",
   "homepage": "https://www.gimp.org/",
   "license": "LGPL-3.0-or-later",
-  "supports": "!windows | mingw",
+  "supports": "!static & (!windows | mingw)",
   "dependencies": [
     {
       "name": "babl",

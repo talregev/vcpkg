@@ -11,7 +11,7 @@ diff --git a/libgimp/meson.build b/libgimp/meson.build
    libgimp_gir_includes = [
      'Babl-0.1',
      'cairo-1.0',
-@@ -520,9 +521,9 @@
+@@ -520,15 +521,21 @@
      export_packages: 'gimp-' + gimp_api_version,
      header: 'libgimp/gimp.h',
      includes: libgimp_gir_includes,
@@ -22,12 +22,26 @@ diff --git a/libgimp/meson.build b/libgimp/meson.build
    )
  
    libgimpui_gir = gnome.generate_gir(
-@@ -537,9 +538,9 @@
+     libgimpui,
+     libgimpwidgets,
++    libgimp,
++    libgimpbase,
++    libgimpcolor,
++    libgimpconfig,
++    libgimpmath,
++    libgimpmodule,
+ 
+     sources: libgimpui_introspectable_files,
+     nsversion: gimp_api_version,
+     namespace: 'GimpUi',
+@@ -536,10 +543,10 @@
+     symbol_prefix: [ 'gimp_ui', 'gimp' ],
      export_packages: 'gimp-ui-' + gimp_api_version,
      header: 'libgimp/gimpui.h',
      includes: [ libgimp_gir_includes, 'Gtk-3.0', libgimp_gir[0] ],
-     extra_args: gir_args,
+-    extra_args: gir_args,
 -    include_directories: rootInclude,
++    extra_args: gir_args + ['--pkg=cairo', '--pkg=gdk-3.0'],
 +    include_directories: [rootInclude, gir_share],
      install: true,
    )
