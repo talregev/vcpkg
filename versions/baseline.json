@@ -768,6 +768,10 @@
       "baseline": "2025-03-08",
       "port-version": 1
     },
+    "blender": {
+      "baseline": "4.5.3",
+      "port-version": 0
+    },
     "blickfeld-qb2": {
       "baseline": "2.13",
       "port-version": 0
