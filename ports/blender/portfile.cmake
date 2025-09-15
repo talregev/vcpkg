@@ -14,9 +14,6 @@ vcpkg_from_github(
         gl.patch
 )
 
-vcpkg_find_acquire_program(PKGCONFIG)
-set(ENV{PKG_CONFIG} "${PKGCONFIG}")
-
 if(VCPKG_TARGET_IS_WINDOWS)
     vcpkg_find_acquire_program(PYTHON3)
     get_filename_component(PYTHON3_DIR "${PYTHON3}" DIRECTORY)
@@ -31,6 +28,7 @@ endif()
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
+        -DPKG_CONFIG_EXECUTABLE=${CURRENT_HOST_INSTALLED_DIR}/tools/pkgconf/pkgconf
         -DCURRENT_INSTALLED_DIR=${CURRENT_INSTALLED_DIR}
         -DENABLE_MSYS2=OFF
         -DMSYS2_USE_UPSTREAM_PACKAGES=OFF

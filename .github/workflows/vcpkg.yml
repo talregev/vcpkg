@@ -85,13 +85,13 @@ jobs:
           zlib
           libpng
           zstd
-          libepoxy
           tiff
           liblzma
           bzip2
           openimageio[opencolorio]
           freetype
           pthreads
+          pkgconf
       - name: copy files for hash
         shell: bash
         run: |
@@ -115,5 +115,7 @@ jobs:
         shell: bash
         if: always()
         run: |
+          cat installed/${{ matrix.triplet }}/lib/pkgconfig/epoxy.pc
+          cat installed/${{ matrix.triplet }}/debug/lib/pkgconfig/epoxy.pc
           cat buildtrees/blender/config-${{ matrix.triplet }}-out.log
           tail -n 1000 buildtrees/blender/install-${{ matrix.triplet }}-*-out.log

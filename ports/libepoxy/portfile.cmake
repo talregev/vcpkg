@@ -50,3 +50,4 @@ file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/share/pkgconfig")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share/pkgconfig")
 
 file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
+
