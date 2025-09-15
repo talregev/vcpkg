@@ -20,12 +20,15 @@ jobs:
           - os: windows-latest
             triplet: x64-windows-static-md
             binary_cache: C:\Users\runneradmin\AppData\Local\vcpkg\archives
+            bootstrap: bootstrap-vcpkg.bat
           - os: ubuntu-latest
             triplet: x64-linux
             binary_cache: /home/runner/.cache/vcpkg/archives
+            bootstrap: bootstrap-vcpkg.sh
           - os: macos-latest
             triplet: arm64-osx
             binary_cache: /Users/runner/.cache/vcpkg/archives
+            bootstrap: bootstrap-vcpkg.sh
     steps:
       - name: echo repo
         shell: bash
@@ -78,9 +81,14 @@ jobs:
         shell: bash
         run: |
           brew install autoconf automake autoconf-archive libtool
+      - name: "bootstrap vcpkg"
+        shell: bash
+        run: |
+          ./${{ matrix.bootstrap }}
       - name: "Install dependencies"
+        shell: bash
         run: >
-          vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
+          ./vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
           libjpeg-turbo
           zlib
           libpng
@@ -108,8 +116,9 @@ jobs:
           path: ${{ matrix.binary_cache }}
           key: ${{ matrix.os }}-${{ hashFiles('vcpkg-info/*') }}
       - name: "Install blender"
+        shell: bash
         run: >
-          vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
+          ./vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
           blender
       - name: print logs
         shell: bash

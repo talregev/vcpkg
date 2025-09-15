@@ -25,10 +25,11 @@ if(VCPKG_TARGET_IS_WINDOWS)
     file(COPY_FILE "${PYTHON3_DIR}/python.exe" "${BLENDER_PY_DIR}/python.exe")
 endif()
 
+set(ENV{PKG_CONFIG} "${CURRENT_HOST_INSTALLED_DIR}/tools/pkgconf/pkgconf")
+
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DPKG_CONFIG_EXECUTABLE=${CURRENT_HOST_INSTALLED_DIR}/tools/pkgconf/pkgconf
         -DCURRENT_INSTALLED_DIR=${CURRENT_INSTALLED_DIR}
         -DENABLE_MSYS2=OFF
         -DMSYS2_USE_UPSTREAM_PACKAGES=OFF
