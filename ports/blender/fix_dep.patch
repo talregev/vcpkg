@@ -1,15 +1,12 @@
 diff --git a/build_files/cmake/Modules/FindOpenImageIO.cmake b/build_files/cmake/Modules/FindOpenImageIO.cmake
-index ac74db02..4e4289be 100644
+index ac74db02..639df8a7 100644
 --- a/build_files/cmake/Modules/FindOpenImageIO.cmake
 +++ b/build_files/cmake/Modules/FindOpenImageIO.cmake
-@@ -18,6 +18,16 @@
+@@ -18,6 +18,13 @@
  #  OPENIMAGEIO_LIBRARY, where to find the OpenImageIO library.
  
  # If `OPENIMAGEIO_ROOT_DIR` was defined in the environment, use it.
 +find_package(OpenImageIO CONFIG REQUIRED)
-+set(OPENIMAGEIO_INCLUDE_DIR ${OpenImageIO_INCLUDE_DIR})
-+set(OPENIMAGEIO_LIBRARY OpenImageIO::OpenImageIO)
-+set(OPENIMAGEIO_UTIL_LIBRARY OpenImageIO::OpenImageIO_Util)
 +set(OPENIMAGEIO_TOOL OpenImageIO::oiiotool)
 +set(OPENIMAGEIO_LIBRARIES OpenImageIO::OpenImageIO OpenImageIO::OpenImageIO_Util)
 +set(OPENIMAGEIO_INCLUDE_DIRS ${OpenImageIO_INCLUDE_DIR})
@@ -19,7 +16,7 @@ index ac74db02..4e4289be 100644
  if(DEFINED OPENIMAGEIO_ROOT_DIR)
    # Pass.
  elseif(DEFINED ENV{OPENIMAGEIO_ROOT_DIR})
-@@ -111,6 +121,7 @@ else()
+@@ -111,6 +118,7 @@ else()
    set(OPENIMAGEIO_PUGIXML_FOUND FALSE)
  endif()
  
