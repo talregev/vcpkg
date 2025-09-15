@@ -121,3 +121,32 @@ index e3328fff..b5c65d03 100644
  mark_as_advanced(
    BROTLI_INCLUDE_DIR
    BROTLI_LIBRARY_COMMON
+diff --git a/build_files/cmake/Modules/FindEpoxy.cmake b/build_files/cmake/Modules/FindEpoxy.cmake
+index f154b613..58d04ac3 100644
+--- a/build_files/cmake/Modules/FindEpoxy.cmake
++++ b/build_files/cmake/Modules/FindEpoxy.cmake
+@@ -10,6 +10,16 @@
+ #  Epoxy_FOUND, If false, do not try to use epoxy.
+ 
+ # If `EPOXY_ROOT_DIR` was defined in the environment, use it.
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(epoxy REQUIRED)
++set(Epoxy_FOUND TRUE)
++set(Epoxy_LIBRARY ${epoxy_LIBRARIES})
++set(Epoxy_LIBRARIES ${epoxy_LIBRARIES})
++set(Epoxy_INCLUDE_DIRS ${epoxy_INCLUDE_DIRS})
++set(Epoxy_INCLUDE_DIR ${epoxy_INCLUDE_DIRS})
++message(STATUS "Epoxy_LIBRARIES: ${epoxy_LIBRARIES}")
++message(STATUS "Epoxy_INCLUDE_DIRS: ${epoxy_INCLUDE_DIRS}")
++if(0)
+ if(DEFINED EPOXY_ROOT_DIR)
+   # Pass.
+ elseif(DEFINED ENV{EPOXY_ROOT_DIR})
+@@ -47,6 +57,7 @@ if(Epoxy_FOUND)
+   set(Epoxy_LIBRARIES ${Epoxy_LIBRARY})
+ endif()
+ 
++endif()
+ mark_as_advanced(
+   Epoxy_INCLUDE_DIR
+   Epoxy_LIBRARY

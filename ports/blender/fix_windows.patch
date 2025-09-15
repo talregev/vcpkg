@@ -1,5 +1,5 @@
 diff --git a/build_files/cmake/platform/platform_win32.cmake b/build_files/cmake/platform/platform_win32.cmake
-index ae75fcd2..ff652d4e 100644
+index ae75fcd2..5320ee3b 100644
 --- a/build_files/cmake/platform/platform_win32.cmake
 +++ b/build_files/cmake/platform/platform_win32.cmake
 @@ -349,12 +349,14 @@ else()
@@ -31,17 +31,19 @@ index ae75fcd2..ff652d4e 100644
  
  windows_find_package(ZLIB) # We want to find before finding things that depend on it like PNG.
  windows_find_package(PNG)
-@@ -422,13 +426,17 @@ if(NOT JPEG_FOUND)
+@@ -422,13 +426,19 @@ if(NOT JPEG_FOUND)
    set(JPEG_LIBRARIES ${LIBDIR}/jpeg/lib/libjpeg.lib)
  endif()
  
 -set(EPOXY_ROOT_DIR ${LIBDIR}/epoxy)
 +# set(EPOXY_ROOT_DIR ${LIBDIR}/epoxy)
  windows_find_package(Epoxy REQUIRED)
++if(0)
  if(NOT EPOXY_FOUND)
    set(Epoxy_INCLUDE_DIRS ${LIBDIR}/epoxy/include)
    set(Epoxy_LIBRARIES ${LIBDIR}/epoxy/lib/epoxy.lib)
  endif()
++endif()
  
 +find_package(PThreads4W REQUIRED)
 +set(PTHREADS_INCLUDE_DIRS ${PThreads4W_INCLUDE_DIR})
@@ -50,7 +52,7 @@ index ae75fcd2..ff652d4e 100644
  set(PTHREADS_INCLUDE_DIRS ${LIBDIR}/pthreads/include)
  set(PTHREADS_LIBRARIES ${LIBDIR}/pthreads/lib/pthreadVC3.lib)
  
-@@ -444,6 +452,7 @@ set(BROTLI_LIBRARIES
+@@ -444,6 +454,7 @@ set(BROTLI_LIBRARIES
    ${LIBDIR}/brotli/lib/brotlidec-static.lib
    ${LIBDIR}/brotli/lib/brotlicommon-static.lib
  )
@@ -58,7 +60,7 @@ index ae75fcd2..ff652d4e 100644
  
  windows_find_package(Freetype REQUIRED)
  
-@@ -1337,8 +1346,11 @@ if(WITH_CYCLES AND WITH_CYCLES_PATH_GUIDING)
+@@ -1337,8 +1348,11 @@ if(WITH_CYCLES AND WITH_CYCLES_PATH_GUIDING)
    endif()
  endif()
  
