@@ -122,27 +122,28 @@ index e3328fff..b5c65d03 100644
    BROTLI_INCLUDE_DIR
    BROTLI_LIBRARY_COMMON
 diff --git a/build_files/cmake/Modules/FindEpoxy.cmake b/build_files/cmake/Modules/FindEpoxy.cmake
-index f154b613..58d04ac3 100644
+index f154b613..fdc1176a 100644
 --- a/build_files/cmake/Modules/FindEpoxy.cmake
 +++ b/build_files/cmake/Modules/FindEpoxy.cmake
-@@ -10,6 +10,16 @@
+@@ -10,6 +10,17 @@
  #  Epoxy_FOUND, If false, do not try to use epoxy.
  
  # If `EPOXY_ROOT_DIR` was defined in the environment, use it.
 +find_package(PkgConfig REQUIRED)
-+pkg_check_modules(Epoxy REQUIRED IMPORTED_TARGET epoxy)
++pkg_check_modules(epoxy REQUIRED IMPORTED_TARGET epoxy)
 +set(Epoxy_FOUND TRUE)
-+set(Epoxy_LIBRARY PkgConfig::Epoxy)
-+set(Epoxy_LIBRARIES PkgConfig::Epoxy)
-+set(Epoxy_INCLUDE_DIRS ${Epoxy_INCLUDE_DIRS})
-+set(Epoxy_INCLUDE_DIR ${Epoxy_INCLUDE_DIRS})
-+message(STATUS "Epoxy_LIBRARIES: ${Epoxy_LIBRARIES}")
-+message(STATUS "Epoxy_INCLUDE_DIRS: ${Epoxy_INCLUDE_DIRS}")
++set(Epoxy_LIBRARY PkgConfig::epoxy)
++set(Epoxy_LIBRARIES PkgConfig::epoxy)
++set(Epoxy_INCLUDE_DIRS ${epoxy_INCLUDE_DIRS})
++set(Epoxy_INCLUDE_DIR ${epoxy_INCLUDE_DIRS})
++message(STATUS "epoxy_LIBRARIES: ${epoxy_STATIC_LIBRARIES}")
++message(STATUS "epoxy_LINK_LIBRARIES: ${epoxy_STATIC_LINK_LIBRARIES}")
++ 
 +if(0)
  if(DEFINED EPOXY_ROOT_DIR)
    # Pass.
  elseif(DEFINED ENV{EPOXY_ROOT_DIR})
-@@ -47,6 +57,7 @@ if(Epoxy_FOUND)
+@@ -47,6 +58,7 @@ if(Epoxy_FOUND)
    set(Epoxy_LIBRARIES ${Epoxy_LIBRARY})
  endif()
  
