@@ -25,7 +25,14 @@ if(VCPKG_TARGET_IS_WINDOWS)
     file(COPY_FILE "${PYTHON3_DIR}/python.exe" "${BLENDER_PY_DIR}/python.exe")
 endif()
 
+if(VCPKG_TARGET_IS_WINDOWS)
+  set(_sep ";")
+else()
+  set(_sep ":")
+endif()
+
 set(ENV{PKG_CONFIG} "${CURRENT_HOST_INSTALLED_DIR}/tools/pkgconf/pkgconf")
+set(ENV{PKG_CONFIG_PATH} "${CURRENT_INSTALLED_DIR}/lib/pkgconfig${_sep}${CURRENT_INSTALLED_DIR}/debug/lib/pkgconfig")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
