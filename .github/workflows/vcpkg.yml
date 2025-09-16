@@ -95,6 +95,7 @@ jobs:
           zstd
           tiff
           liblzma
+          libepoxy
           bzip2
           openimageio[opencolorio]
           freetype
