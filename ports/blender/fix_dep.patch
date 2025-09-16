@@ -130,10 +130,10 @@ index f154b613..58d04ac3 100644
  
  # If `EPOXY_ROOT_DIR` was defined in the environment, use it.
 +find_package(PkgConfig REQUIRED)
-+pkg_check_modules(Epoxy REQUIRED epoxy)
++pkg_check_modules(Epoxy REQUIRED IMPORTED_TARGET epoxy)
 +set(Epoxy_FOUND TRUE)
-+set(Epoxy_LIBRARY ${Epoxy_LIBRARIES})
-+set(Epoxy_LIBRARIES ${Epoxy_LIBRARIES})
++set(Epoxy_LIBRARY PkgConfig::Epoxy)
++set(Epoxy_LIBRARIES PkgConfig::Epoxy)
 +set(Epoxy_INCLUDE_DIRS ${Epoxy_INCLUDE_DIRS})
 +set(Epoxy_INCLUDE_DIR ${Epoxy_INCLUDE_DIRS})
 +message(STATUS "Epoxy_LIBRARIES: ${Epoxy_LIBRARIES}")
