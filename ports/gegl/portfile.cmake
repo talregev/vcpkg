@@ -14,11 +14,18 @@ vcpkg_extract_source_archive(
         remove_execinfo_support.patch
 )
 
+if("introspection" IN_LIST FEATURES)
+    list(APPEND feature_options "-Dintrospection=true")
+    vcpkg_get_gobject_introspection_programs(PYTHON3 GIR_COMPILER GIR_SCANNER)
+else()
+    list(APPEND feature_options "-Dintrospection=false")
+endif()
+
 vcpkg_configure_meson(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
+        ${feature_options}
         -Ddocs=false
-        -Dintrospection=false
         -Dgdk-pixbuf=disabled
         -Dgexiv2=disabled
         -Dgraphviz=disabled
@@ -45,6 +52,9 @@ vcpkg_configure_meson(
         -Dsdl2=disabled
         -Dumfpack=disabled
         -Dwebp=disabled
+    ADDITIONAL_BINARIES
+        "g-ir-compiler='${GIR_COMPILER}'"
+        "g-ir-scanner='${GIR_SCANNER}'"
 )
 
 vcpkg_install_meson()
