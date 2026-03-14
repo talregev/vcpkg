@@ -1,0 +1,103 @@
+diff --git a/src/longlong_msc_arm64.h b/src/longlong_msc_arm64.h
+index 214748427..f4c186fe9 100644
+--- a/src/longlong_msc_arm64.h
++++ b/src/longlong_msc_arm64.h
+@@ -14,16 +14,17 @@
+ 
+ #include <stdlib.h>
+ #include <intrin.h>
+-#include <immintrin.h>
++#ifndef _MSC_VER
++    #include <immintrin.h>
++#endif
+ 
+ /* Trailing and leading zeros */
+ # define flint_clz _CountLeadingZeros64
+ # define flint_ctz flint_ctz
+ static inline int flint_ctz(ulong x)
+ {
+-    unsigned long int index;
+-    _BitScanForward64(&index, x);
+-    return index;
++    ulong y = x & (ulong) (-(slong) x);
++    return 63 - _CountLeadingZeros64(y);
+ }
+ 
+ /* Multiplication */
+diff --git a/src/machine_vectors.h b/src/machine_vectors.h
+index 7d40a5089..2f962b553 100644
+--- a/src/machine_vectors.h
++++ b/src/machine_vectors.h
+@@ -985,7 +985,9 @@ FLINT_FORCE_INLINE vec1d vec1d_reduce_pm1n_to_pmhn(vec1d a, vec1d n) {
+ /* vec2d -- NEON/ARM64 *********************************************/
+ 
+ FLINT_FORCE_INLINE double vec2d_get_index(vec2d a, int i) {
+-    return a[i];
++    double data[2];
++    vst1q_f64(data, a);
++    return data[i];
+ }
+ 
+ FLINT_FORCE_INLINE vec2d vec2d_set_d2(double a0, double a1)
+@@ -1101,11 +1103,11 @@ FLINT_FORCE_INLINE vec2d vec2d_fnmadd(vec2d a, vec2d b, vec2d c) {
+ 
+ /* these two might be slow due to the extra negation */
+ FLINT_FORCE_INLINE vec2d vec2d_fmsub(vec2d a, vec2d b, vec2d c) {
+-    return -vfmsq_f64(c, a, b);
++    return vnegq_f64(vfmsq_f64(c, a, b));
+ }
+ 
+ FLINT_FORCE_INLINE vec2d vec2d_fnmsub(vec2d a, vec2d b, vec2d c) {
+-    return -vfmaq_f64(c, a, b);
++    return vnegq_f64(vfmaq_f64(c, a, b));
+ }
+ 
+ FLINT_FORCE_INLINE vec2d vec2d_div(vec2d a, vec2d b)
+@@ -1431,7 +1433,9 @@ EXTEND_VEC_DEF4(vec4d, vec8d, _nmulmod)
+ 
+ 
+ FLINT_FORCE_INLINE int vec2d_same(vec2d a, vec2d b) {
+-    return a[0] == b[0] && a[1] == b[1];
++    uint64x2_t eq = vceqq_f64(a, b);
++    return vgetq_lane_u64(eq, 0) == ~UINT64_C(0)
++        && vgetq_lane_u64(eq, 1) == ~UINT64_C(0);
+ }
+ 
+ 
+diff --git a/src/profiler.h b/src/profiler.h
+index 6302b4280..ef08ad448 100644
+--- a/src/profiler.h
++++ b/src/profiler.h
+@@ -17,15 +17,17 @@
+ #if defined(_MSC_VER)
+ # include <intrin.h>
+ # include "gettimeofday.h"
+-# pragma intrinsic(__rdtsc)
++# if defined(_M_IX86) || defined(_M_X64) || defined(_M_AMD64)
++#  pragma intrinsic(__rdtsc)
++# endif
+ #else
+ # include <sys/time.h>
+ #endif
+ #include <time.h>
+ #include "flint.h"
+ 
+-#if defined(_MSC_VER) || defined(__x86_64__) || defined(__aarch64__)
+-# define FLINT_HAVE_get_cycle_counter  1
++#if (defined(_MSC_VER) && (defined(_M_IX86) || defined(_M_X64) || defined(_M_AMD64) || defined(_M_ARM64) || defined(_M_ARM64EC))) || defined(__x86_64__) || defined(__aarch64__)
++# define FLINT_HAVE_get_cycle_counter 1
+ #endif
+ #if (defined(__unix__) && !defined(__CYGWIN__) && !defined(__EMSCRIPTEN__)) || defined(__APPLE__)
+ # define FLINT_HAVE_getrusage   1
+@@ -155,8 +157,10 @@ static inline void timeit_print(timeit_t timer, ulong reps)
+ #if FLINT_HAVE_get_cycle_counter
+ static inline double get_cycle_counter(void)
+ {
+-#if defined(_MSC_VER)
++#if defined(_MSC_VER) && (defined(_M_IX86) || defined(_M_X64) || defined(_M_AMD64))
+     return __rdtsc();
++#elif defined(_MSC_VER) && (defined(_M_ARM64) || defined(_M_ARM64EC))
++    return (double) (unsigned __int64) _ReadStatusReg(ARM64_PMCCNTR_EL0);
+ #elif defined(__x86_64__)
+     unsigned int hi, lo;
+     __asm__ volatile ("rdtsc; movl %%edx,%0; movl %%eax,%1"

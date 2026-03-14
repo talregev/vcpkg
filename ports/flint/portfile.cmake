@@ -5,6 +5,7 @@ vcpkg_from_github(
     SHA512 b4dba0ff70296615e8a997d5cbbce321334dfc54f7a02888d345d3d52e67c8d0b9dcbfa4dd4d387cbd7f11ac3c62e01525b3b326d08b2c1d008510291f479185
     HEAD_REF master
     PATCHES
+        fix-msvc-arm64.patch
         fix-msvc-x86.patch
 )
 

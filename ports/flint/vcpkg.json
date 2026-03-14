@@ -5,7 +5,7 @@
   "description": "Fast Library for Number Theory",
   "homepage": "https://www.flintlib.org/",
   "license": "GPL-3.0-only",
-  "supports": "!uwp & !(windows & arm64)",
+  "supports": "!uwp",
   "dependencies": [
     "gettimeofday",
     "gmp",
