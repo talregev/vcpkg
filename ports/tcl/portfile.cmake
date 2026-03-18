@@ -136,12 +136,12 @@ if (VCPKG_TARGET_IS_WINDOWS)
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 else()
     file(REMOVE "${SOURCE_PATH}/unix/configure")
-    vcpkg_configure_make(
+    vcpkg_make_configure(
         SOURCE_PATH "${SOURCE_PATH}"
         PROJECT_SUBPATH unix
     )
     
-    vcpkg_install_make()
+    vcpkg_make_install()
     vcpkg_fixup_pkgconfig()
     
     if(VCPKG_LIBRARY_LINKAGE STREQUAL static)

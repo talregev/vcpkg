@@ -29,9 +29,9 @@ else()
     vcpkg_list(APPEND options "--disable-nls")
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     ADDITIONAL_MSYS_PACKAGES gzip
     OPTIONS
         ${options}
@@ -43,7 +43,7 @@ if("nls" IN_LIST FEATURES)
     vcpkg_build_make(BUILD_TARGET dist LOGFILE_ROOT build-dist)
 endif()
 
-vcpkg_install_make()
+vcpkg_make_install()
 
 vcpkg_copy_tool_dependencies("${CURRENT_PACKAGES_DIR}/tools/${PORT}/bin")
 

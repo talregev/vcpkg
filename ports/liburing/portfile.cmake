@@ -17,14 +17,14 @@ set(ENV{CFLAGS} "$ENV{CFLAGS} -O3 -Wall -Wextra -fno-stack-protector")
 file(MAKE_DIRECTORY "${CURRENT_INSTALLED_DIR}/debug")
 
 # note: check ${SOURCE_PATH}/liburing.spec before updating configure options
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     COPY_SOURCE
     DETERMINE_BUILD_TRIPLET
     OPTIONS
         [[--libdevdir=\${prefix}/lib]] # must match libdir
 )
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_fixup_pkgconfig()
 
 # note: {SOURCE_PATH}/src/Makefile makes liburing.so from liburing.a.

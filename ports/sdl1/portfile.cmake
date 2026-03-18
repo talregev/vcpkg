@@ -65,14 +65,14 @@ else()
         file(CHMOD "${polyfill_scripts}/which" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE)
     endif()
 
-    vcpkg_configure_make(
+    vcpkg_make_configure(
         SOURCE_PATH "${SOURCE_PATH}"
         OPTIONS
             --disable-pulseaudio
             --disable-video-directfb
     )
 
-    vcpkg_install_make()
+    vcpkg_make_install()
     vcpkg_fixup_pkgconfig()
 
     file(REMOVE_RECURSE

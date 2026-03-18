@@ -1,6 +1,7 @@
 {
   "name": "hwloc",
   "version": "2.11.2",
+  "port-version": 1,
   "maintainers": "bgoglin<Brice.Goglin@inria.fr>",
   "description": [
     "Portable Hardware Locality (hwloc)",
@@ -8,5 +9,11 @@
   ],
   "homepage": "https://github.com/open-mpi/hwloc",
   "license": "BSD-2-Clause",
-  "supports": "!uwp"
+  "supports": "!uwp",
+  "dependencies": [
+    {
+      "name": "vcpkg-make",
+      "host": true
+    }
+  ]
 }

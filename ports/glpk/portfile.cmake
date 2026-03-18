@@ -44,16 +44,16 @@ else()
     vcpkg_list(APPEND CONFIGURE_OPTIONS --disable-odbc)
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     NO_ADDITIONAL_PATHS
     DETERMINE_BUILD_TRIPLET
     OPTIONS
         ${CONFIGURE_OPTIONS}
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 set(libname glpk)
 configure_file("${CMAKE_CURRENT_LIST_DIR}/glpk.pc.in" "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/glpk.pc" @ONLY)
 if(NOT VCPKG_BUILD_TYPE)

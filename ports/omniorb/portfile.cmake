@@ -84,9 +84,9 @@ if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
   file(COPY ${wrappers} DESTINATION "${SOURCE_PATH}/bin")
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
   SOURCE_PATH "${SOURCE_PATH}"
-  AUTOCONFIG
+  AUTORECONF
   NO_WRAPPERS
   COPY_SOURCE
   OPTIONS
@@ -102,7 +102,7 @@ if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
   endif()
 endif()
 
-vcpkg_install_make(
+vcpkg_make_install(
   MAKEFILE "GNUmakefile"
   ADD_BIN_TO_PATH
 )

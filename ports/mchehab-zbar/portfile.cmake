@@ -20,9 +20,9 @@ else()
     file(TOUCH "${SOURCE_PATH}/po/Makefile.in.in")
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     ADD_BIN_TO_PATH # checking for working iconv
     OPTIONS
         ${options}
@@ -39,7 +39,7 @@ vcpkg_configure_make(
         --disable-assert
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
 

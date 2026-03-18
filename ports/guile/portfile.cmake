@@ -13,12 +13,12 @@ vcpkg_extract_source_archive(
 
 vcpkg_add_to_path("${CURRENT_HOST_INSTALLED_DIR}/tools/gperf")
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     ADD_BIN_TO_PATH
-    AUTOCONFIG
+    AUTORECONF
 )
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_copy_pdbs()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")

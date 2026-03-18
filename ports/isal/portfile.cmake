@@ -72,14 +72,14 @@ else()
         vcpkg_list(APPEND options AS=)
     endif()
 
-    vcpkg_configure_make(
+    vcpkg_make_configure(
         SOURCE_PATH "${SOURCE_PATH}"
         OPTIONS
             ${options}
             # No rpl_malloc provided, and probably not depending on ‘malloc (0)’ returning a valid pointer
             ac_cv_func_malloc_0_nonnull=yes
     )
-    vcpkg_install_make()
+    vcpkg_make_install()
     vcpkg_fixup_pkgconfig()
     
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")

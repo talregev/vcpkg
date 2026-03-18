@@ -12,7 +12,7 @@ file(COPY "${SOURCE_PATH}/kernel/linux/pf_ring.h" DESTINATION "${CURRENT_BUILDTR
 vcpkg_find_acquire_program(BISON)
 vcpkg_find_acquire_program(FLEX)
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     PROJECT_SUBPATH "userland"
     COPY_SOURCE
@@ -20,7 +20,7 @@ vcpkg_configure_make(
         --disable-archopt
 )
 string(REPLACE "dynamic" "shared" install_target "install-${VCPKG_LIBRARY_LINKAGE}")
-vcpkg_install_make(
+vcpkg_make_install(
     SUBPATH "lib"
     INSTALL_TARGET "${install_target}"
     OPTIONS

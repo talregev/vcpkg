@@ -20,15 +20,15 @@ if(VCPKG_TARGET_ARCHITECTURE STREQUAL "arm64")
     )
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     USE_WRAPPERS
     OPTIONS
         ${OPTIONS}
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 
 vcpkg_fixup_pkgconfig()
 vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/xapian)

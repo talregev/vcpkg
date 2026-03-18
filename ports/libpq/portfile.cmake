@@ -107,10 +107,10 @@ else()
     if(VCPKG_DETECTED_CMAKE_OSX_SYSROOT)
         list(APPEND BUILD_OPTS "PG_SYSROOT=${VCPKG_DETECTED_CMAKE_OSX_SYSROOT}")
     endif()
-    vcpkg_configure_make(
+    vcpkg_make_configure(
         SOURCE_PATH "${SOURCE_PATH}"
         COPY_SOURCE
-        AUTOCONFIG
+        AUTORECONF
         ADDITIONAL_MSYS_PACKAGES autoconf-archive
             DIRECT_PACKAGES
                 "https://mirror.msys2.org/msys/x86_64/tzcode-2025b-1-x86_64.pkg.tar.zst"
@@ -132,7 +132,7 @@ else()
     if(HAS_TOOLS)
         set(ENV{LIBPQ_ENABLE_TOOLS} yes)
     endif()
-    vcpkg_install_make()
+    vcpkg_make_install()
 
     vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/postgresql/server/pg_config.h" "#define CONFIGURE_ARGS" "// #define CONFIGURE_ARGS")
     vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/pg_config.h" "#define CONFIGURE_ARGS" "// #define CONFIGURE_ARGS")

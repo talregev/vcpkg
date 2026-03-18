@@ -77,9 +77,9 @@ else()
     vcpkg_list(APPEND OPTIONS "MSVC_TARGET=no")
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     OPTIONS
         ${OPTIONS}
         --disable-documentation
@@ -88,7 +88,7 @@ vcpkg_configure_make(
     OPTIONS_DEBUG
         --disable-tools
 )
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_fixup_pkgconfig()
 
 if(NOT VCPKG_CROSSCOMPILING)

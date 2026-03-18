@@ -6,11 +6,11 @@ vcpkg_download_distfile(ARCHIVE
 
 vcpkg_extract_source_archive(SOURCE_PATH ARCHIVE "${ARCHIVE}")
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include"  "${CURRENT_PACKAGES_DIR}/debug/share")
 

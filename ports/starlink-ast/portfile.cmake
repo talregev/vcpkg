@@ -36,7 +36,7 @@ else()
     list(APPEND CONFIGURE_OPTIONS --without-pthreads)
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     USE_WRAPPERS
     DETERMINE_BUILD_TRIPLET
@@ -46,7 +46,7 @@ vcpkg_configure_make(
     OPTIONS_DEBUG
         CMINPACK_DEBUG_SUFFIX=_d
 )
-vcpkg_install_make(
+vcpkg_make_install(
     OPTIONS
         STAR_LDFLAGS= # Do not override build type's lib dirs
 )

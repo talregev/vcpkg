@@ -142,7 +142,7 @@ if(subdirs)
     endif()
 
     file(REMOVE "${CURRENT_BUILDTREES_DIR}/config.cache-${TARGET_TRIPLET}-rel.log")
-    vcpkg_configure_make(SOURCE_PATH "${SOURCE_PATH}"
+    vcpkg_make_configure(SOURCE_PATH "${SOURCE_PATH}"
         DETERMINE_BUILD_TRIPLET
         USE_WRAPPERS
         ADDITIONAL_MSYS_PACKAGES gzip
@@ -166,7 +166,7 @@ if(subdirs)
         file(WRITE "${file}" "${rules}")
     endforeach()
 
-    vcpkg_install_make()
+    vcpkg_make_install()
     vcpkg_copy_pdbs()
     vcpkg_copy_tool_dependencies("${CURRENT_PACKAGES_DIR}/tools/${PORT}/bin")
     file(GLOB unix_runtime LIST_DIRECTORIES false
@@ -183,7 +183,7 @@ endif()
 if("tools" IN_LIST FEATURES)
     vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/lib/gettext/user-email" "${CURRENT_INSTALLED_DIR}" "`dirname $0`/../.." IGNORE_UNCHANGED)
 else()
-    # A fast installation of the autopoint tool and data, needed for autoconfig
+    # A fast installation of the autopoint tool and data, needed for AUTORECONF
     include("${CMAKE_CURRENT_LIST_DIR}/install-autopoint.cmake")
     install_autopoint()
 endif()

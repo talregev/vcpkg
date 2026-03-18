@@ -84,7 +84,7 @@ else()
     endif()
 
     file(COPY "${CMAKE_CURRENT_LIST_DIR}/configure" DESTINATION "${SOURCE_PATH}")
-    vcpkg_configure_make(SOURCE_PATH "${SOURCE_PATH}"
+    vcpkg_make_configure(SOURCE_PATH "${SOURCE_PATH}"
         COPY_SOURCE
         OPTIONS
             "BUILDMODE=${VCPKG_LIBRARY_LINKAGE}"
@@ -92,7 +92,7 @@ else()
         OPTIONS_RELEASE
             "DASM_ARCHS=${dasm_archs}"
     )
-    vcpkg_install_make(
+    vcpkg_make_install(
         MAKEFILE "Makefile.vcpkg"
         OPTIONS
             ${make_options}

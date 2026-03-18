@@ -1,7 +1,7 @@
 {
   "name": "pbc",
   "version": "0.5.14",
-  "port-version": 9,
+  "port-version": 10,
   "description": "Pairing-Based Crypto library provides low-level routines for pairing-based cryptosystems.",
   "homepage": "https://crypto.stanford.edu/pbc",
   "license": "LGPL-3.0",
@@ -14,6 +14,11 @@
     {
       "name": "mpir",
       "platform": "windows"
+    },
+    {
+      "name": "vcpkg-make",
+      "host": true,
+      "platform": "!windows"
     },
     {
       "name": "vcpkg-msbuild",

@@ -8,14 +8,14 @@ vcpkg_from_sourceforge(
         fix-macosx.patch
 )
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         "--disable-examples"
         ac_cv_lib_raw1394_raw1394_channel_modify=no
         ac_cv_path_SDL_CONFIG=no
 )
-vcpkg_install_make()
+vcpkg_make_install()
 
 file(APPEND "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/libdc1394-2.pc" "\nRequires.private: libusb-1.0\n")
 if(NOT VCPKG_BUILD_TYPE)

@@ -29,9 +29,9 @@ else()
     vcpkg_list(APPEND options "--disable-crypto")
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     ADD_BIN_TO_PATH  # for iconv-detect
     OPTIONS
         ${options}
@@ -54,7 +54,7 @@ if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
     endif()
 endif()
 
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
 

@@ -63,9 +63,9 @@ endif()
 
 
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     OPTIONS 
         --with-xfile-search-path=X11
         --with-appdefaultdir=share/X11/app-defaults
@@ -81,7 +81,7 @@ if(VCPKG_CROSSCOMPILING)
     endif()
 endif()
 
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_fixup_pkgconfig()
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic" AND VCPKG_TARGET_IS_WINDOWS)

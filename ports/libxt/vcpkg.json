@@ -1,6 +1,7 @@
 {
   "name": "libxt",
   "version": "1.3.0",
+  "port-version": 1,
   "description": "X Toolkit Intrinsics library",
   "homepage": "https://gitlab.freedesktop.org/xorg/lib/libxt",
   "license": null,
@@ -16,6 +17,10 @@
     },
     {
       "name": "vcpkg-cmake-get-vars",
+      "host": true
+    },
+    {
+      "name": "vcpkg-make",
       "host": true
     },
     "xorg-macros",

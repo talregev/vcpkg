@@ -1,8 +1,15 @@
 {
   "name": "isal",
   "version": "2.30.0",
+  "port-version": 1,
   "description": "Intel(R) Intelligent Storage Acceleration Library",
   "homepage": "https://github.com/intel/isa-l",
   "license": "BSD-3-Clause",
-  "supports": "!uwp & (x64 | (arm64 & linux))"
+  "supports": "!uwp & (x64 | (arm64 & linux))",
+  "dependencies": [
+    {
+      "name": "vcpkg-make",
+      "host": true
+    }
+  ]
 }

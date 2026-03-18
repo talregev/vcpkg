@@ -19,9 +19,9 @@ elseif(VCPKG_TARGET_IS_OSX)
     list(APPEND OPTIONS "HWLOC_LDFLAGS=-framework CoreFoundation")
 endif()
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     OPTIONS
         ${OPTIONS} 
         --disable-libxml2
@@ -37,7 +37,7 @@ vcpkg_configure_make(
         #--disable-picky
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_fixup_pkgconfig()
 vcpkg_copy_tool_dependencies("${CURRENT_PACKAGES_DIR}/tools/${PORT}/bin")
 

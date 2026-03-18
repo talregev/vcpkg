@@ -32,9 +32,9 @@ vcpkg_extract_source_archive(SOURCE_PATH
         msvc-use-stdint.patch
 )
 
-vcpkg_configure_make(
+vcpkg_make_configure(
     SOURCE_PATH "${SOURCE_PATH}"
-    AUTOCONFIG
+    AUTORECONF
     USE_WRAPPERS
     OPTIONS
         ${OPTIONS}
@@ -42,7 +42,7 @@ vcpkg_configure_make(
         "--with-libiconv-prefix=${CURRENT_INSTALLED_DIR}"
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 vcpkg_fixup_pkgconfig()
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 

@@ -7,15 +7,15 @@ vcpkg_from_github(
     PATCHES fix-build-error.patch
 )
 
-vcpkg_configure_make(
-    AUTOCONFIG
+vcpkg_make_configure(
+    AUTORECONF
     SOURCE_PATH "${SOURCE_PATH}"
     PROJECT_SUBPATH libcrafter
     OPTIONS
         "--with-libpcap=${CURRENT_INSTALLED_DIR}"
 )
 
-vcpkg_install_make()
+vcpkg_make_install()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
