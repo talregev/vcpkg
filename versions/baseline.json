@@ -769,7 +769,7 @@
       "port-version": 1
     },
     "blender": {
-      "baseline": "4.5.3",
+      "baseline": "4.5.8",
       "port-version": 0
     },
     "blickfeld-qb2": {
