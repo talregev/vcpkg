@@ -374,7 +374,7 @@ if("cuda" IN_LIST FEATURES)
   string(APPEND DEPS_STRING "\nfind_dependency(CUDA)")
 endif()
 if("ffmpeg" IN_LIST FEATURES)
-  string(APPEND DEPS_STRING "\nfind_dependency(FFMPEG)")
+  string(APPEND DEPS_STRING "\nfind_dependency(FFmpeg)")
 endif()
 if("contrib" IN_LIST FEATURES AND NOT VCPKG_TARGET_IS_UWP AND NOT VCPKG_TARGET_IS_IOS AND NOT (VCPKG_TARGET_IS_WINDOWS AND VCPKG_TARGET_ARCHITECTURE MATCHES "^arm"))
   string(APPEND DEPS_STRING "
