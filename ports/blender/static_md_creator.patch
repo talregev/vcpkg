@@ -1,0 +1,51 @@
+diff --git a/source/creator/CMakeLists.txt b/source/creator/CMakeLists.txt
+--- a/source/creator/CMakeLists.txt
++++ b/source/creator/CMakeLists.txt
+@@ -17,6 +17,14 @@ set(LIB
+   PRIVATE bf::dependencies::optional::opencolorio
+ )
+ 
++if(WIN32)
++  # `bf_intern_ghost` uses epoxy symbols, but the epoxy import library does
++  # not reliably propagate through Blender's static-library aggregation.
++  list(APPEND LIB
++    PRIVATE ${Epoxy_LIBRARIES}
++  )
++endif()
++
+ if(HAVE_FEENABLEEXCEPT)
+   add_definitions(-DHAVE_FEENABLEEXCEPT)
+ endif()
+@@ -598,17 +606,21 @@ if(WIN32)
+       FILES ${LIBDIR}/opencolorio/bin/opencolorio_d_2_3.dll
+       DEBUG
+     )
+-  endif()
+-  install(
+-    DIRECTORY ${LIBDIR}/opencolorio/lib/site-packages-debug/PyOpenColorIO
+-    DESTINATION ${TARGETDIR_SITE_PACKAGES}
+-    CONFIGURATIONS Debug
+-  )
+-  install(
+-    DIRECTORY ${LIBDIR}/opencolorio/lib/site-packages/PyOpenColorIO
+-    DESTINATION ${TARGETDIR_SITE_PACKAGES}
+-    CONFIGURATIONS Release;RelWithDebInfo;MinSizeRel
+-  )
++  endif()
++  if(EXISTS ${LIBDIR}/opencolorio/lib/site-packages-debug/PyOpenColorIO)
++    install(
++      DIRECTORY ${LIBDIR}/opencolorio/lib/site-packages-debug/PyOpenColorIO
++      DESTINATION ${TARGETDIR_SITE_PACKAGES}
++      CONFIGURATIONS Debug
++    )
++  endif()
++  if(EXISTS ${LIBDIR}/opencolorio/lib/site-packages/PyOpenColorIO)
++    install(
++      DIRECTORY ${LIBDIR}/opencolorio/lib/site-packages/PyOpenColorIO
++      DESTINATION ${TARGETDIR_SITE_PACKAGES}
++      CONFIGURATIONS Release;RelWithDebInfo;MinSizeRel
++    )
++  endif()
+   if(EXISTS ${LIBDIR}/OpenImageDenoise/bin/openimagedenoise.dll) # 4.0
+     windows_install_shared_manifest(
+       FILES

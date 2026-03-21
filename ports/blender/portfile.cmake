@@ -12,6 +12,8 @@ vcpkg_from_github(
         fix_apple.patch
         fix_windows.patch
         gl.patch
+        static_md_macros.patch
+        static_md_creator.patch
 )
 
 if(VCPKG_TARGET_IS_WINDOWS)
@@ -238,5 +240,3 @@ vcpkg_copy_pdbs()
 
 # License and man
 file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
-
-
