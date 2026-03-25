@@ -76,6 +76,8 @@ jobs:
           libxi-dev
           libxkbcommon-dev
           libxkbcommon-x11-dev
+          libxrandr-dev 
+          nasm
       - name: Install macOS vcpkg dependencies
         if: runner.os == 'macOS'
         shell: bash
@@ -97,7 +99,8 @@ jobs:
           liblzma
           libepoxy
           bzip2
-          openimageio[opencolorio]
+          openimageio[ffmpeg,opencv,opencolorio]
+          opencv[ffmpeg,opencl,freetype]
           freetype
           pthreads
           pkgconf
@@ -119,7 +122,7 @@ jobs:
       - name: "Install blender"
         shell: bash
         run: >
-          ./vcpkg x-set-installed --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
+          ./vcpkg install --triplet ${{ matrix.triplet }} --host-triplet ${{ matrix.triplet }} --x-install-root=installed
           blender
       - name: print logs
         shell: bash
