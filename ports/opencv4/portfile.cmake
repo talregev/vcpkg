@@ -500,6 +500,7 @@ if (NOT VCPKG_BUILD_TYPE)
   )
 endif()
 
+file(READ "${CURRENT_PACKAGES_DIR}/share/opencv4/OpenCVConfig.cmake" OPENCV_CONFIG)
 file(READ "${CURRENT_PACKAGES_DIR}/share/opencv4/OpenCVModules.cmake" OPENCV_MODULES)
 set(DEPS_STRING "include(CMakeFindDependencyMacro)
 if(${BUILD_opencv_dnn} AND NOT TARGET libprotobuf)  #Check if the CMake target libprotobuf is already defined
@@ -600,8 +601,9 @@ if("vulkan" IN_LIST FEATURES)
   string(APPEND DEPS_STRING "\nfind_dependency(VulkanHeaders CONFIG)")
 endif()
 
-string(REPLACE "set(CMAKE_IMPORT_FILE_VERSION 1)"
-               "set(CMAKE_IMPORT_FILE_VERSION 1)\n${DEPS_STRING}" OPENCV_MODULES "${OPENCV_MODULES}")
+string(REPLACE "include(CMakeFindDependencyMacro)"
+               "include(CMakeFindDependencyMacro)\n${DEPS_STRING}"
+               OPENCV_CONFIG "${OPENCV_CONFIG}")
 
 if("openmp" IN_LIST FEATURES)
   string(REPLACE "set_target_properties(opencv_core PROPERTIES
@@ -615,6 +617,7 @@ if("ovis" IN_LIST FEATURES)
                  "OgreGLSupport" OPENCV_MODULES "${OPENCV_MODULES}")
 endif()
 
+file(WRITE "${CURRENT_PACKAGES_DIR}/share/opencv4/OpenCVConfig.cmake" "${OPENCV_CONFIG}")
 file(WRITE "${CURRENT_PACKAGES_DIR}/share/opencv4/OpenCVModules.cmake" "${OPENCV_MODULES}")
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
