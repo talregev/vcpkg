@@ -1,0 +1,38 @@
+diff --git a/giscanner/sourcescanner.py b/giscanner/sourcescanner.py
+index aadd6c9..df01bc8 100644
+--- a/giscanner/sourcescanner.py
++++ b/giscanner/sourcescanner.py
+@@ -26,6 +26,33 @@ from .ccompiler import CCompiler
+ from .utils import have_debug_flag, dll_dirs
+ 
+ 
++if os.name == 'nt':
++    # The _giscanner extension module is always a release build, linked against
++    # the release GLib DLLs. add_dll_dirs() below derives its DLL directories
++    # from gio-2.0.pc, so while a debug configuration is being scanned it points
++    # the loader at the debug GLib DLLs instead. Those are built against the
++    # debug CRT, and mixing both CRTs in one process kills the scanner with
++    # STATUS_STACK_BUFFER_OVERRUN. Load the release DLLs by full path first, so
++    # the loader reuses the already loaded modules instead of searching the
++    # debug directories.
++    def _preload_release_glib():
++        import ctypes
++        import glob
++
++        # <prefix>/lib/gobject-introspection/giscanner -> <prefix>/bin
++        bindir = os.path.abspath(
++            os.path.join(os.path.dirname(__file__), '..', '..', '..', 'bin'))
++        if not os.path.isdir(bindir):
++            return
++        for pattern in ('glib-2.0-*.dll', 'gobject-2.0-*.dll', 'gio-2.0-*.dll'):
++            for dll in glob.glob(os.path.join(bindir, pattern)):
++                try:
++                    ctypes.WinDLL(dll)
++                except OSError:
++                    pass
++
++    _preload_release_glib()
++
+ dlldirs = dll_dirs()
+ dlldirs.add_dll_dirs(['gio-2.0'])
+ from giscanner._giscanner import SourceScanner as CSourceScanner
