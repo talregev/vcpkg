@@ -14,6 +14,7 @@ vcpkg_extract_source_archive(
         0001-g-ir-tool-template.in.patch
         gir-scanner-runtime.diff
         gir-scanner-release-glib.patch
+        gir-scanner-dumper-dll-path.patch
         # https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/575
         setuptools-compat.patch
 )

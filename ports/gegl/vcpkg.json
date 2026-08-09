@@ -28,7 +28,7 @@
     },
     "introspection": {
       "description": "Enable introspection",
-      "supports": "!static & (!windows | mingw)",
+      "supports": "!static",
       "dependencies": [
         {
           "name": "babl",

@@ -1,0 +1,60 @@
+diff --git a/giscanner/dumper.py b/giscanner/dumper.py
+index e567863..01e025f 100644
+--- a/giscanner/dumper.py
++++ b/giscanner/dumper.py
+@@ -268,6 +268,7 @@ class DumpCompiler(object):
+ 
+         dll_dirs = utils.dll_dirs()
+         dll_dirs.add_dll_dirs(self._packages)
++        dll_dirs.add_dll_paths(self._options.library_paths)
+ 
+         if not self._options.quiet:
+             print("g-ir-scanner: link: %s" % (
+diff --git a/giscanner/utils.py b/giscanner/utils.py
+index 9840143..117d0ab 100644
+--- a/giscanner/utils.py
++++ b/giscanner/utils.py
+@@ -344,6 +344,19 @@ class dll_dirs(metaclass=Singleton):
+             for path in giscanner.pkgconfig.bindir(pkgs):
+                 self._add_dll_dir(path)
+ 
++    def add_dll_paths(self, paths):
++        # The library search paths (-L) that were used to link the library
++        # being scanned. On Windows the DLLs sit either next to the import
++        # libraries or in the sibling bin/ directory of the same prefix, and
++        # the introspection dump binary needs to be able to load them.
++        if os.name == 'nt' and hasattr(os, 'add_dll_directory'):
++            for path in paths:
++                path = path.rstrip('/\\')
++                if not path:
++                    continue
++                self._add_dll_dir(path)
++                self._add_dll_dir(os.path.join(os.path.dirname(path), 'bin'))
++
+     def cleanup_dll_dirs(self):
+         if self._cached_added_dll_dirs is not None:
+             for added_dll_dir in self._cached_added_dll_dirs:
+@@ -353,9 +366,20 @@ class dll_dirs(metaclass=Singleton):
+             self._cached_dll_dirs.clear()
+ 
+     def _add_dll_dir(self, path):
+-        if path not in self._cached_dll_dirs:
+-            self._cached_dll_dirs.append(path)
+-            self._cached_added_dll_dirs.append(os.add_dll_directory(path))
++        if path in self._cached_dll_dirs or not os.path.isdir(path):
++            return
++        self._cached_dll_dirs.append(path)
++        self._cached_added_dll_dirs.append(os.add_dll_directory(path))
++        # os.add_dll_directory() only affects DLL resolution inside this
++        # process. The introspection dump binary is spawned as a child
++        # process and resolves its dependencies through PATH, so mirror the
++        # directory there as well. This is deliberately not undone by
++        # cleanup_dll_dirs(): the dump binary is executed after the link step
++        # has already cleaned up.
++        abspath = os.path.abspath(path)
++        entries = os.environ.get('PATH', '').split(os.pathsep)
++        if abspath not in entries:
++            os.environ['PATH'] = os.pathsep.join([abspath] + entries)
+ 
+ 
+ # monkey patch distutils.cygwinccompiler
